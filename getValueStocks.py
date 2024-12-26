@@ -8,7 +8,9 @@ from flask import Flask, render_template, flash, redirect, request, \
 
 
 from datetime import datetime 
-import requests
+#incorpora la lib curl_cffi en lugar de la requests para ver de solucionar el tema de filtrado de Web Scraping
+#import requests
+from curl_cffi import requests
 import urllib3
 
 import json
@@ -56,11 +58,7 @@ def lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iQuantity ,data, sEspeci
     print ("INICIANDO: lee_val_2")
     campos = {}
     res = requests.get(url, 
-                        headers={
-                                    'Cookie': '__cf_bm=eRJ5DZoNfXN9BzXj3CPNvQ9uKxS8RQJAkpXKKtvpNyE-1732204634-1.0.1.1-T_ixq9emHgYhXpZocl2OEkIInKAY7Gue85n5vUNIpbMJAyE8ryfV4Fdwfu0D.U1TGpPGk3Cb2T8ZfbJMvQ_5TR2LNSzAWir8Q_JaAShKFQg; firstUdid=0; gcc=AR; gsc=B; smd=9df700a45e60c4519de82a459c584107-1732204001; udid=9df700a45e60c4519de82a459c584107; __cflb=0H28vFEFimnpowq71CdWzBFhnnYdQ9pspJoKbqEFS9r',
-                                    'User-Agent': 'Mozilla/5.0'
-                                }
-                        , verify=None)
+                        impersonate="safari_ios")
     print ("res: " , res)
     f = open ('rta.txt','w',encoding='utf-8')
     f.write(res.text)
@@ -113,7 +111,7 @@ def getvalues():
     iDolar = lee_val_dolar ()
     print ("dolar: ", iDolar)
     iMola = 680
-    iMsft = 500
+    iMsft = 610
     iBma = 3100
     iAdgo = 120
     iAlua = 1850

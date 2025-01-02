@@ -112,7 +112,7 @@ def getvalues():
     print ("dolar: ", iDolar)
     iMola = 680
     iMsft = 610
-    iBma = 3100
+    iBma = 3200
     iAdgo = 120
     iAlua = 1850
     iGgal = 560
@@ -195,4 +195,4 @@ def index():
     
     # Flask development
 if __name__ == '__main__':
-   application.run(port = 8081, host = '0.0.0.0', debug = True)
+   application.run(port = 8080, host = '0.0.0.0', debug = True)

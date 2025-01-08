@@ -1,6 +1,15 @@
 #parsea un archivo .csv para generar los script insert de un mysql, la tabla tiene el siguiente formato:
 #CREATE TABLE History (nombre VARCHAR(100) NOT NULL, fecha_oper DATE NOT NULL, apertura DECIMAL (5,4), maximo DECIMAL (5,4), minimo DECIMAL (5,4), cierre DECIMAL (5,4));
 
+#el archivo de historicos de RAVA tiene el siguiente formato:
+#especie,fecha,apertura,maximo,minimo,cierre,volumen,timestamp
+#BMA,1993-11-12,9.20458,9.57774,8.70703,9.20458,387681,753073200
+#BMA,1993-11-15,9.20458,9.39116,9.20458,9.20458,276213,753332400
+
+#y la salida genera un archivo con inserts por cada registro del .csv del tipo:
+#INSERT INTO History (nombre, fecha_oper, apertura, maximo, minimo, cierre) VALUES ('BMA', '1993-11-12',9.20458,9.57774,8.70703,9.20458);
+
+
 file1 = open('../csv-script/BMA - Cotizaciones historicas.csv', 'r',encoding='utf-8')
 Lines = file1.readlines()
 

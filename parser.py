@@ -1,5 +1,5 @@
 #parsea un archivo .csv para generar los script insert de un mysql, la tabla tiene el siguiente formato:
-#CREATE TABLE History (nombre VARCHAR(100) NOT NULL, fecha_oper DATE NOT NULL, apertura DECIMAL (5,4), maximo DECIMAL (5,4), minimo DECIMAL (5,4), cierre DECIMAL (5,4));
+#CREATE TABLE History (nombre VARCHAR(100) NOT NULL, fecha_oper DATE NOT NULL, apertura DECIMAL (10,4), maximo DECIMAL (10,4), minimo DECIMAL (10,4), cierre DECIMAL (10,4));
 
 #el archivo de historicos de RAVA tiene el siguiente formato:
 #especie,fecha,apertura,maximo,minimo,cierre,volumen,timestamp

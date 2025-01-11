@@ -16,10 +16,12 @@ def fPaginado ():
 print ("otra prueba db")
 
 dbConnect2 = {
-    'host':'172.28.183.229',
+#    'host':'172.28.183.229',
+    'host':'192.168.1.113',
     'user':'root',
     'password':'sasa1234',
-    'database':'retest',
+#    'database':'retest',
+    'database':'options',
  }
 
 conex = mysql.connector.connect(**dbConnect2)

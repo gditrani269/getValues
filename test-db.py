@@ -47,13 +47,21 @@ for (databases) in cursor2:
      print (databases[0])
 
 print ("------------------------")
-sql = "select * FROM History limit 10 offset 10"
+sql = "select * FROM History limit 2 offset 10"
 cursor = conex.cursor()
 cursor.execute(sql)
+results = {}
+iIndex = 0
 for (sql) in cursor:
-     print (sql[0], sql[1], sql[2], sql[3], sql[4], sql[5])
+    print ("Tipo es: " , type(sql[0]))
+    print ("Tipo es: " , type(sql[1]))
+    print ("Tipo es: " , type(sql[2]))
+    print (sql[0], sql[1], sql[2], sql[3], sql[4], sql[5])
+    results [iIndex] = sql[0], str(sql[1]), float(sql[2]), float(sql[3]), float(sql[4]), float(sql[5])
+    print ("\nresults:" , results)
+        
+    iIndex = iIndex + 1
 #cursor3 = conex.cursor()
-results = cursor.fetchall ()
-print(results)
 
-fPaginado ()
+
+#fPaginado ()

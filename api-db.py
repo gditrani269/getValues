@@ -6,6 +6,7 @@ import requests
 import mysql.connector
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import dumps
+from datetime import datetime
 
 def lee_val_dolar ():
 
@@ -22,20 +23,29 @@ def fPaginado ():
     }
     print ("funcion de paginado")
     conex = mysql.connector.connect(**dbConnect2)
-
     cursor = conex.cursor()
-    sql = "select * FROM History limit 10 offset 10"
-    cursor.execute(sql)
-    results = cursor.fetchall ()
-    print(results)
-    print ("sgunda pagina")
     sql = "select * FROM History limit 10 offset 20"
+    results = {}
+    data = []
+    iIndex = 0
     cursor.execute(sql)
-    results = cursor.fetchall ()
-    print(results)
+    for (sql) in cursor:
+        sTmp = sql[2]
+        print ("Tipo es: " , type(sql[1]))
+        if (sTmp == "Decimal('9.4534')"):
+            print ("SON IGUALES")
+        if (sTmp == '9.4534'):
+            print ("SON IGUALES")        
+        print ("sTmp\n", sTmp)
+        print ("\n", sql[0], sql[1], sql[2], sql[3], sql[4], sql[5])
+        results [iIndex] = sql[0], str(sql[1]), float(sql[2]), float(sql[3]), float(sql[4]), float(sql[5])
+        print ("\nresults:" , results)
+        
+        iIndex = iIndex + 1
 
-    print ("otra prueba db")
-    return results
+    data.append (results)
+    print ("FIN otra prueba db")
+    return data
 
 
 """ The HTTP request handler """
@@ -63,12 +73,11 @@ class RequestHandler(BaseHTTPRequestHandler):
 
       print ("SALIDA")
       print (fPaginado())
-      response = {}
-      print ("SALIDA2")
-      response ['id'] = ('BMA',  (1993, 12, 13),  "Decimal",('9.4534'),  "Decimal",('9.4845'),  "Decimal",('9.4534'),  "Decimal",('9.4534')), ('BMA',  (1993, 12, 14),  "Decimal",('9.5155'),  "Decimal",('9.5777'),  "Decimal",('9.4534'),  "Decimal",('9.5155')), ('BMA',  (1993, 12, 15),  "Decimal",('9.4845'),  "Decimal",('9.5155'),  "Decimal",('9.4534'),  "Decimal",('9.4845')), ('BMA',  (1993, 12, 16),  "Decimal",('9.5777'),  "Decimal",('9.6399'),  "Decimal",('9.5466'),  "Decimal",('9.5777')), ('BMA',  (1993, 12, 17),  "Decimal",('9.6399'),  "Decimal",('9.6399'),  "Decimal",('9.5155'),  "Decimal",('9.6399')), ('BMA',  (1993, 12, 20),  "Decimal",('9.8887'),  "Decimal",('9.8887'),  "Decimal",('9.8265'),  "Decimal",('9.8887')), ('BMA',  (1993, 12, 21),  "Decimal",('9.5777'),  "Decimal",('10.0131'),  "Decimal",('9.5777'),  "Decimal",('9.5777')), ('BMA',  (1993, 12, 22),  "Decimal",('9.8887'),  "Decimal",('9.9198'),  "Decimal",('9.6399'),  "Decimal",('9.8887')), ('BMA',  (1993, 12, 23),  "Decimal",('10.5728'),  "Decimal",('10.5728'),  "Decimal",('9.9509'),  "Decimal",('10.5728')), ('BMA',  (1993, 12, 24),  "Decimal",('10.5728'),  "Decimal",('10.5728'),  "Decimal",('10.3862'),  "Decimal",('10.5728'))#fPaginado()
       data = []
-      data.append (response)
-      print ("SALIDA3")
+#      data['Valor Dolar'] = iDolar
+      iDolar = 8
+#      data.append ({'id': 0, 'dolar': iDolar})
+      data = fPaginado()
       print (data)
       print ("SALIDA4")
       self.send_dict_response(data)

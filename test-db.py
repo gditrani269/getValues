@@ -50,6 +50,8 @@ print ("------------------------")
 sql = "select * FROM History limit 10 offset 10"
 cursor = conex.cursor()
 cursor.execute(sql)
+for (sql) in cursor:
+     print (sql[0], sql[1], sql[2], sql[3], sql[4], sql[5])
 #cursor3 = conex.cursor()
 results = cursor.fetchall ()
 print(results)

@@ -63,13 +63,15 @@ class RequestHandler(BaseHTTPRequestHandler):
 
       print ("SALIDA")
       print (fPaginado())
-      response = []
+      response = {}
       print ("SALIDA2")
-      response.append (fPaginado())
+      response ['id'] = ('BMA',  (1993, 12, 13),  "Decimal",('9.4534'),  "Decimal",('9.4845'),  "Decimal",('9.4534'),  "Decimal",('9.4534')), ('BMA',  (1993, 12, 14),  "Decimal",('9.5155'),  "Decimal",('9.5777'),  "Decimal",('9.4534'),  "Decimal",('9.5155')), ('BMA',  (1993, 12, 15),  "Decimal",('9.4845'),  "Decimal",('9.5155'),  "Decimal",('9.4534'),  "Decimal",('9.4845')), ('BMA',  (1993, 12, 16),  "Decimal",('9.5777'),  "Decimal",('9.6399'),  "Decimal",('9.5466'),  "Decimal",('9.5777')), ('BMA',  (1993, 12, 17),  "Decimal",('9.6399'),  "Decimal",('9.6399'),  "Decimal",('9.5155'),  "Decimal",('9.6399')), ('BMA',  (1993, 12, 20),  "Decimal",('9.8887'),  "Decimal",('9.8887'),  "Decimal",('9.8265'),  "Decimal",('9.8887')), ('BMA',  (1993, 12, 21),  "Decimal",('9.5777'),  "Decimal",('10.0131'),  "Decimal",('9.5777'),  "Decimal",('9.5777')), ('BMA',  (1993, 12, 22),  "Decimal",('9.8887'),  "Decimal",('9.9198'),  "Decimal",('9.6399'),  "Decimal",('9.8887')), ('BMA',  (1993, 12, 23),  "Decimal",('10.5728'),  "Decimal",('10.5728'),  "Decimal",('9.9509'),  "Decimal",('10.5728')), ('BMA',  (1993, 12, 24),  "Decimal",('10.5728'),  "Decimal",('10.5728'),  "Decimal",('10.3862'),  "Decimal",('10.5728'))#fPaginado()
+      data = []
+      data.append (response)
       print ("SALIDA3")
-      print (response)
+      print (data)
       print ("SALIDA4")
-      self.send_dict_response(response)
+      self.send_dict_response(data)
 
   def do_POST(self):
       self.send_response(200)

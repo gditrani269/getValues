@@ -3,6 +3,8 @@
 #para resolverf el problema de certificados usar:
 #pip install pip-system-certs
 # pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pip-system-certs
+#pip install flask
+#pip install curl_cffi
 from flask import Flask, render_template, flash, redirect, request, \
     jsonify
 
@@ -11,7 +13,7 @@ from datetime import datetime
 #incorpora la lib curl_cffi en lugar de la requests para ver de solucionar el tema de filtrado de Web Scraping
 #import requests
 from curl_cffi import requests
-import urllib3
+#import urllib3
 
 import json
 import os
@@ -19,7 +21,7 @@ import os
 
 def lee_val_dolar ():
     print ("iniciando lee_val_dolar")
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+#    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     res = requests.get("https://www.lanacion.com.ar/", verify=False)
     print ("res: " , res)
 #    print ("post request.get")
@@ -195,4 +197,4 @@ def index():
     
     # Flask development
 if __name__ == '__main__':
-   application.run(port = 8080, host = '0.0.0.0', debug = True)
+   application.run(port = 8000, host = '0.0.0.0', debug = True)

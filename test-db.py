@@ -1,3 +1,8 @@
+
+#ejecutar con:
+#python3.11 test-db.py
+
+#pip install mysql-connector-python
 import mysql.connector
 
 def fPaginado ():
@@ -16,16 +21,17 @@ def fPaginado ():
 print ("otra prueba db")
 
 dbConnect2 = {
-#    'host':'172.28.183.229',
-    'host':'192.168.1.113',
+    'host':'172.28.183.229',
+#    'host':'192.168.1.113',
     'user':'root',
     'password':'sasa1234',
-#    'database':'retest',
-    'database':'options',
+    'database':'retest',
+#    'database':'options',
  }
 
+print ("Arranca")
 conex = mysql.connector.connect(**dbConnect2)
-
+print ("Arranca 2")
 cursor = conex.cursor()
 
 sql = "select * from History"

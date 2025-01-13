@@ -1,8 +1,14 @@
 
 #api de prueba que publica en 8000 y se conecta a una DB en otro pod y muestra el resultado
 # https://royportas.com/posts/cors-python/
-import urllib3
-import requests
+
+#ejecutar con:
+#python3.11 api-db.py
+
+#pip install mysql-connector-python
+
+#import urllib3
+#import requests
 import mysql.connector
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import dumps
@@ -14,8 +20,8 @@ def lee_val_dolar ():
 
 def fPaginado ():
     dbConnect2 = {
-    #    'host':'172.28.183.229',
-        'host':'192.168.1.113',
+        'host':'172.28.183.229',
+    #    'host':'192.168.1.113',
         'user':'root',
         'password':'sasa1234',
     #    'database':'retest',
@@ -100,6 +106,6 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 
 print("Starting server")
-httpd = HTTPServer(("127.0.0.1", 8000), RequestHandler)
+httpd = HTTPServer(("0.0.0.0", 8000), RequestHandler)
 print("Hosting server on port 8000")
 httpd.serve_forever()

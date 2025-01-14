@@ -9,10 +9,14 @@
 
 #import urllib3
 #import requests
+
 import mysql.connector
+import re
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import dumps
-from datetime import datetime
+
+from urllib.parse import urlparse, parse_qs
+
 
 def lee_val_dolar ():
 
@@ -36,17 +40,9 @@ def fPaginado ():
     iIndex = 0
     cursor.execute(sql)
     for (sql) in cursor:
-        sTmp = sql[2]
-        print ("Tipo es: " , type(sql[1]))
-        if (sTmp == "Decimal('9.4534')"):
-            print ("SON IGUALES")
-        if (sTmp == '9.4534'):
-            print ("SON IGUALES")        
-        print ("sTmp\n", sTmp)
-        print ("\n", sql[0], sql[1], sql[2], sql[3], sql[4], sql[5])
+#        print ("\n", sql[0], sql[1], sql[2], sql[3], sql[4], sql[5])
         results [iIndex] = sql[0], str(sql[1]), float(sql[2]), float(sql[3]), float(sql[4]), float(sql[5])
-        print ("\nresults:" , results)
-        
+#        print ("\nresults:" , results)
         iIndex = iIndex + 1
 
     data.append (results)
@@ -76,9 +72,15 @@ class RequestHandler(BaseHTTPRequestHandler):
       self.send_response(200)
       self._send_cors_headers()
       self.end_headers()
-
+      print ("-------------------INICIO------------------------------------")
       print ("SALIDA")
-      print (fPaginado())
+      print ("self: ", self)
+      print ("self.path: ", self.path)
+      print ("re.search ", re.search)
+      if re.search('/sasa', self.path):
+        print ("ca toy papa")
+
+#      print (fPaginado())
       data = []
 #      data['Valor Dolar'] = iDolar
       iDolar = 8
@@ -86,6 +88,7 @@ class RequestHandler(BaseHTTPRequestHandler):
       data = fPaginado()
       print (data)
       print ("SALIDA4")
+      print ("-------------------FIN------------------------------------")
       self.send_dict_response(data)
 
   def do_POST(self):

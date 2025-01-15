@@ -113,11 +113,12 @@ def getvalues():
     iDolar = lee_val_dolar ()
     print ("dolar: ", iDolar)
     iMola = 680
-    iMsft = 500
-    iBma = 3100
+    iMsft = 610
+    iBma = 3200
     iAdgo = 120
     iAlua = 1850
     iGgal = 560
+    TGSU2 = 400
     data = {}
     data['Valor Dolar'] = iDolar
     data['Total Pesos'] = 0
@@ -180,6 +181,11 @@ def getvalues():
 #    iTotalDolares = iTotalDolares + iBmaUsd
 #    print (sasa*iBma, "en dolares:" ,  iBmaUsd)
 #    data['BMA'] = str(iBmaUsd)
+
+    url = 'https://es.investing.com/equities/tran-gas-del-s'
+#    sasa = lee_val (url)
+    data = lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, TGSU2, data, 'TGSU2')
+
 
     print ("Total Pesos: ", iTotalPesos)
     print ("Total Dolares: ", iTotalDolares)

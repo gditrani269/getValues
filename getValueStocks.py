@@ -3,13 +3,17 @@
 #para resolverf el problema de certificados usar:
 #pip install pip-system-certs
 # pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pip-system-certs
+#pip install flask
+#pip install curl_cffi
 from flask import Flask, render_template, flash, redirect, request, \
     jsonify
 
 
 from datetime import datetime 
-import requests
-import urllib3
+#incorpora la lib curl_cffi en lugar de la requests para ver de solucionar el tema de filtrado de Web Scraping
+#import requests
+from curl_cffi import requests
+#import urllib3
 
 import json
 import os
@@ -17,7 +21,7 @@ import os
 
 def lee_val_dolar ():
     print ("iniciando lee_val_dolar")
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+#    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     res = requests.get("https://www.lanacion.com.ar/", verify=False)
     print ("res: " , res)
 #    print ("post request.get")
@@ -56,11 +60,7 @@ def lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iQuantity ,data, sEspeci
     print ("INICIANDO: lee_val_2")
     campos = {}
     res = requests.get(url, 
-                        headers={
-                                    'Cookie': '__cf_bm=eRJ5DZoNfXN9BzXj3CPNvQ9uKxS8RQJAkpXKKtvpNyE-1732204634-1.0.1.1-T_ixq9emHgYhXpZocl2OEkIInKAY7Gue85n5vUNIpbMJAyE8ryfV4Fdwfu0D.U1TGpPGk3Cb2T8ZfbJMvQ_5TR2LNSzAWir8Q_JaAShKFQg; firstUdid=0; gcc=AR; gsc=B; smd=9df700a45e60c4519de82a459c584107-1732204001; udid=9df700a45e60c4519de82a459c584107; __cflb=0H28vFEFimnpowq71CdWzBFhnnYdQ9pspJoKbqEFS9r',
-                                    'User-Agent': 'Mozilla/5.0'
-                                }
-                        , verify=None)
+                        impersonate="safari_ios")
     print ("res: " , res)
     f = open ('rta.txt','w',encoding='utf-8')
     f.write(res.text)
@@ -203,4 +203,4 @@ def index():
     
     # Flask development
 if __name__ == '__main__':
-   application.run(port = 8081, host = '0.0.0.0', debug = True)
+   application.run(port = 8000, host = '0.0.0.0', debug = True)

@@ -59,8 +59,7 @@ def lee_val_dolar ():
 def lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iQuantity ,data, sEspecie):
     print ("INICIANDO: lee_val_2")
     campos = {}
-    res = requests.get(url, 
-                        impersonate="safari_ios")
+    res = requests.get(url, impersonate="safari_ios", verify=False)
     print ("res: " , res)
     f = open ('rta.txt','w',encoding='utf-8')
     f.write(res.text)
@@ -203,4 +202,4 @@ def index():
     
     # Flask development
 if __name__ == '__main__':
-   application.run(port = 8000, host = '0.0.0.0', debug = True)
+   application.run(port = 80, host = '0.0.0.0', debug = True)

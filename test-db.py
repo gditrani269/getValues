@@ -21,12 +21,12 @@ def fPaginado ():
 print ("otra prueba db")
 
 dbConnect2 = {
-    'host':'172.28.183.229',
+    'host':'172.23.218.221',
 #    'host':'192.168.1.113',
     'user':'root',
     'password':'sasa1234',
-    'database':'retest',
-#    'database':'options',
+#    'database':'retest',
+    'database':'options',
  }
 
 print ("Arranca")

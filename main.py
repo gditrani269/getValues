@@ -9,6 +9,7 @@ import mysql.connector
 
 import mylibs
 import investing
+import dbConnect
 
 from curl_cffi import requests
 
@@ -23,6 +24,11 @@ from typing import Union
 #    'database':'options',
 #} 
 #conex = mysql.connector.connect(**dbConnect2)
+
+print ("conectar con la DB")
+conex = dbConnect.dbConnect ()
+if (conex == ''):
+    print ("FALLO la conexxion a la DB ")
 
 def fListaDB ():
     cursor2 = conex.cursor()
@@ -139,6 +145,18 @@ async def read_item(item_id):
 
 
     return data #sRta
+
+
+#endpoin de insert de tipo de accion nueva
+#endpoint con tipo de parametro
+@app.get("/alta/{item_id}")
+async def read_item(item_id: str):
+    sRta = "ok"
+    print ("------------------------")
+    bState = dbConnect.NuevaAccion (conex)
+    if (bState == True): sRta = "ok"
+    else: sRta = "Fault"
+    return sRta
 
 #endpoint con tipo de parametro
 @app.get("/items3/{item_id}")

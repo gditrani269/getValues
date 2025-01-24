@@ -14,15 +14,15 @@ from curl_cffi import requests
 
 from typing import Union
 
-dbConnect2 = {
-    'host':'172.23.218.221',
-#    'host':'192.168.1.113',
-    'user':'root',
-    'password':'sasa1234',
-#    'database':'retest',
-    'database':'options',
-} 
-conex = mysql.connector.connect(**dbConnect2)
+#dbConnect2 = {
+#    'host':'172.23.218.221',
+##    'host':'192.168.1.113',
+#    'user':'root',
+#    'password':'sasa1234',
+##    'database':'retest',
+#    'database':'options',
+#} 
+#conex = mysql.connector.connect(**dbConnect2)
 
 def fListaDB ():
     cursor2 = conex.cursor()
@@ -56,25 +56,89 @@ async def read_item(item_id):
     iDolar = mylibs.lee_val_dolar ()
 
     iMola = 680
-    iMsft = 500
-    iBma = 3100
+    iMsft = 610
+    iBma = 3200
     iAdgo = 120
     iAlua = 1850
     iGgal = 560
-    data = []
-#      data['Valor Dolar'] = iDolar
-    data.append ({'id': 0, 'dolar': iDolar})
-#      data['Total Pesos'] = 0
+    TGSU2 = 400
+    data = {}
+    data['Valor Dolar'] = iDolar
+    data['Total Pesos'] = 0
     
-#      data['Total Dolares'] = 0    
+    data['Total Dolares'] = 0    
     iTotalDolares = 0
     iTotalPesos = 0
     #url = 'http://localhost:8080/health'
     url = 'https://es.investing.com/equities/adecoagro-sa-ar-chart'
 #    sasa = lee_val (url)
-    data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iAdgo, data, 'ADGO', 1)
+    data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iAdgo, data, 'ADGO')
 
-    return {"item_id": item_id, " El dolar esta a: ": iDolar}
+#    iTotalPesos = iTotalPesos + sasa*iAdgo
+#    iAdgoUsd = sasa*iAdgo/iDolar
+#    iTotalDolares = iTotalDolares + iAdgoUsd
+#    print (sasa*iAdgo, "en dolares:" ,  iAdgoUsd)
+#    data['ADGO'] = str(iAdgoUsd)
+    print ("data: ", data)
+
+    url = 'https://es.investing.com/equities/molinos-agro-chart'
+#    sasa = lee_val (url)
+    data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iMola, data, 'MOLA')
+#    iTotalPesos = iTotalPesos + sasa*iMola
+#    iMolaUsd = sasa*iMola/iDolar
+#    iTotalDolares = iTotalDolares + iMolaUsd
+#    print (sasa*iMola, "en dolares:" ,  iMolaUsd)
+#    data['MOLA'] = str(iMolaUsd)
+
+    url = 'https://es.investing.com/equities/aluar-chart'
+#    sasa = lee_val (url)
+    data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iAlua, data, 'ALUA')
+#    iTotalPesos = iTotalPesos + sasa*iAlua
+#    iAluaUsd = sasa*iAlua/iDolar
+#    iTotalDolares = iTotalDolares + iAluaUsd
+#    print (sasa*iAlua, "en dolares:" ,  iAluaUsd)
+#    data['ALUA'] = str(iAluaUsd)
+
+    url = 'https://es.investing.com/equities/microsoft-corp-ar-chart'
+#    sasa = lee_val (url)
+    data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iMsft, data, 'MSFT')
+#    iTotalPesos = iTotalPesos + sasa*iMsft
+#    iMsfUsd = sasa*iMsft/iDolar
+#    iTotalDolares = iTotalDolares + iMsfUsd
+#    print (sasa*iMsft, "en dolares:" ,  iMsfUsd)
+#    data['MSFT'] = str(iMsfUsd)
+
+    url = 'https://es.investing.com/equities/gp-fin-galicia-chart'
+#    sasa = lee_val (url)
+    data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iGgal, data, 'GGAL')
+#    iTotalPesos = iTotalPesos + sasa*iGgal
+#    iGgalUsd = sasa*iGgal/iDolar
+#    iTotalDolares = iTotalDolares + iGgalUsd
+#    print (sasa*iGgal, "en dolares:" ,  iGgalUsd)
+#    data['GGAL'] = str(iGgalUsd)
+
+    url = 'https://es.investing.com/equities/macro-chart'
+#    sasa = lee_val (url)
+    data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iBma, data, 'BMA')
+#    iTotalPesos = iTotalPesos + sasa*iBma
+#    iBmaUsd = sasa*iBma/iDolar
+#    iTotalDolares = iTotalDolares + iBmaUsd
+#    print (sasa*iBma, "en dolares:" ,  iBmaUsd)
+#    data['BMA'] = str(iBmaUsd)
+
+    url = 'https://es.investing.com/equities/tran-gas-del-s'
+#    sasa = lee_val (url)
+    data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, TGSU2, data, 'TGSU2')
+
+
+    print ("Total Pesos: ", iTotalPesos)
+    print ("Total Dolares: ", iTotalDolares)
+    sRta = "Total Pesos: " + str(iTotalPesos) + "Total Dolares: " + str(iTotalDolares)
+#    data['Total Pesos'] = str(iTotalPesos)
+#    data['Total Dolares'] = str(iTotalDolares)
+
+
+    return data #sRta
 
 #endpoint con tipo de parametro
 @app.get("/items3/{item_id}")

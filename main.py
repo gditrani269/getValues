@@ -77,65 +77,26 @@ async def read_item(item_id):
     iTotalPesos = 0
     #url = 'http://localhost:8080/health'
     url = 'https://es.investing.com/equities/adecoagro-sa-ar-chart'
-#    sasa = lee_val (url)
     data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iAdgo, data, 'ADGO')
-
-#    iTotalPesos = iTotalPesos + sasa*iAdgo
-#    iAdgoUsd = sasa*iAdgo/iDolar
-#    iTotalDolares = iTotalDolares + iAdgoUsd
-#    print (sasa*iAdgo, "en dolares:" ,  iAdgoUsd)
-#    data['ADGO'] = str(iAdgoUsd)
     print ("data: ", data)
 
     url = 'https://es.investing.com/equities/molinos-agro-chart'
-#    sasa = lee_val (url)
     data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iMola, data, 'MOLA')
-#    iTotalPesos = iTotalPesos + sasa*iMola
-#    iMolaUsd = sasa*iMola/iDolar
-#    iTotalDolares = iTotalDolares + iMolaUsd
-#    print (sasa*iMola, "en dolares:" ,  iMolaUsd)
-#    data['MOLA'] = str(iMolaUsd)
 
     url = 'https://es.investing.com/equities/aluar-chart'
-#    sasa = lee_val (url)
     data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iAlua, data, 'ALUA')
-#    iTotalPesos = iTotalPesos + sasa*iAlua
-#    iAluaUsd = sasa*iAlua/iDolar
-#    iTotalDolares = iTotalDolares + iAluaUsd
-#    print (sasa*iAlua, "en dolares:" ,  iAluaUsd)
-#    data['ALUA'] = str(iAluaUsd)
 
     url = 'https://es.investing.com/equities/microsoft-corp-ar-chart'
-#    sasa = lee_val (url)
     data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iMsft, data, 'MSFT')
-#    iTotalPesos = iTotalPesos + sasa*iMsft
-#    iMsfUsd = sasa*iMsft/iDolar
-#    iTotalDolares = iTotalDolares + iMsfUsd
-#    print (sasa*iMsft, "en dolares:" ,  iMsfUsd)
-#    data['MSFT'] = str(iMsfUsd)
 
     url = 'https://es.investing.com/equities/gp-fin-galicia-chart'
-#    sasa = lee_val (url)
     data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iGgal, data, 'GGAL')
-#    iTotalPesos = iTotalPesos + sasa*iGgal
-#    iGgalUsd = sasa*iGgal/iDolar
-#    iTotalDolares = iTotalDolares + iGgalUsd
-#    print (sasa*iGgal, "en dolares:" ,  iGgalUsd)
-#    data['GGAL'] = str(iGgalUsd)
 
     url = 'https://es.investing.com/equities/macro-chart'
-#    sasa = lee_val (url)
     data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iBma, data, 'BMA')
-#    iTotalPesos = iTotalPesos + sasa*iBma
-#    iBmaUsd = sasa*iBma/iDolar
-#    iTotalDolares = iTotalDolares + iBmaUsd
-#    print (sasa*iBma, "en dolares:" ,  iBmaUsd)
-#    data['BMA'] = str(iBmaUsd)
 
     url = 'https://es.investing.com/equities/tran-gas-del-s'
-#    sasa = lee_val (url)
     data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, TGSU2, data, 'TGSU2')
-
 
     print ("Total Pesos: ", iTotalPesos)
     print ("Total Dolares: ", iTotalDolares)
@@ -146,17 +107,36 @@ async def read_item(item_id):
 
     return data #sRta
 
-
 #endpoin de insert de tipo de accion nueva
-#endpoint con tipo de parametro
-@app.get("/alta/{item_id}")
-async def read_item(item_id: str):
-    sRta = "ok"
+#Ej: http://127.0.0.1:8081/alta/?especie=BMA&url=https://es.investing.com/equities/macro-chart&cantidad=3200
+@app.get("/alta/")
+async def read_item(especie: str, url: str, cantidad: int):
+    sRta = "ok alta"
     print ("------------------------")
-    bState = dbConnect.NuevaAccion (conex)
+    bState = dbConnect.NuevaAccion (conex, especie, url, cantidad)
     if (bState == True): sRta = "ok"
-    else: sRta = "Fault"
+    else: sRta = "Fault alta"
     return sRta
+
+#endpoint de actualizacion de cantidad de un tipo de accion
+#Ej: http://127.0.0.1:8081/update/?especie=BMA&cantidad=330
+@app.get("/update/")
+async def read_item(especie: str, cantidad: int):
+    sRta = "ok update"
+    print ("------------------------")
+    bState = dbConnect.UpdateCantidadAcciones (conex, especie, cantidad)
+    if (bState == True): sRta = "ok"
+    else: sRta = "Fault update"
+    return sRta
+
+#endpoint que muestra el estado actual de todas las inversiones
+#Ej: http://127.0.0.1:8081/state/
+@app.get("/state/")
+async def read_item():
+    iDolar = mylibs.lee_val_dolar ()
+    bRta = dbConnect.State (conex, iDolar)
+
+    return "OK state " + str(iDolar)
 
 #endpoint con tipo de parametro
 @app.get("/items3/{item_id}")

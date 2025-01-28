@@ -4,6 +4,7 @@
 #pip3 install fastapi
 #pip3 install "uvicorn[standard]" && \
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 #pip install mysql-connector-python
 import mysql.connector
 
@@ -38,6 +39,17 @@ def fListaDB ():
         print (databases[0])
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 async def root():
 
@@ -136,7 +148,7 @@ async def read_item():
     iDolar = mylibs.lee_val_dolar ()
     bRta = dbConnect.State (conex, iDolar)
 
-    return "OK state " + str(iDolar)
+    return bRta
 
 #endpoint con tipo de parametro
 @app.get("/items3/{item_id}")

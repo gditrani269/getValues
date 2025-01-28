@@ -1,6 +1,8 @@
 #pip install mysql-connector-python
 import mysql.connector
 
+import investing
+
 def dbConnect ():
     print ("dbConnect.dbConnect")
     dbConnect2 = {
@@ -65,11 +67,22 @@ def State (conex, iDolar):
     cursor.execute(sql)
     results = {}
     iIndex = 0
+    data = {}
+    data['Valor Dolar'] = iDolar
+    data['Total Pesos'] = 0
+    
+    data['Total Dolares'] = 0    
+    iTotalDolares = 0
+    iTotalPesos = 0
     for (sql) in cursor:
   #      print ("Tipo es: " , type(sql[0]))
  #       print ("Tipo es: " , type(sql[1]))
 #        print ("Tipo es: " , type(sql[2]))
         print (sql[0], sql[1], sql[2], sql[3])
+
+#        data = investing.lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iAdgo, data, 'ADGO')
+        data = investing.lee_val_2 (sql[2], iTotalPesos, iTotalDolares, iDolar, sql[3], data, sql[1])
+        print ("data: ", data)
  #       results [iIndex] = sql[0], str(sql[1]), float(sql[2]), float(sql[3]), float(sql[4]), float(sql[5])
   #      print ("\nresults:" , results)
             
@@ -83,4 +96,4 @@ def State (conex, iDolar):
     #for data in results:
      #   print(data)
 
-    return bRta
+    return data

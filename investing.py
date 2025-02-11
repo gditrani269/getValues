@@ -30,3 +30,29 @@ def lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iQuantity ,data, sEspeci
 #    data['Total Dolares'] = iTotalDolares
     print ("DATA: ", data)
     return data
+
+def lee_val_new (url, iDolar, iQuantity, sEspecie, iIndex):
+    print ("INICIANDO: lee_val_new")
+    campos = {}
+    res = requests.get(url, impersonate="safari_ios", verify=False)
+    print ("res: " , res)
+    f = open ('rta.txt','w',encoding='utf-8')
+    f.write(res.text)
+    f.close()
+    file1 = open('rta.txt', 'r',encoding='utf-8')
+    Lines = file1.readlines()
+    for line in Lines:
+        iFirstTag = line.find('instrument-price-last')
+        if (iFirstTag) > 0 :
+            iStartValue = line.find('>', iFirstTag)
+            iEndValue = line.find(',',iStartValue)
+            iAccionValue = int(float(line [iStartValue+1 : iEndValue].replace('.','')))
+
+    campos = {
+        "id": iIndex,
+        "accion": sEspecie,
+        "valor": iAccionValue,
+        "Saldo_pesos": iAccionValue * iQuantity,
+        "Saldo_dolares": iAccionValue * iQuantity / iDolar
+    }
+    return campos

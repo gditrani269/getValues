@@ -97,3 +97,31 @@ def State (conex, iDolar):
      #   print(data)
 
     return data
+
+def State_new (conex, iDolar):
+    print ("dbConnect.State_new")
+    iIndex = 0
+    iTotalDolares = 0
+    iTotalPesos = 0
+    data = []
+    cursor = conex.cursor()
+    sql = "select * from acciones"
+    cursor = conex.cursor()
+    cursor.execute(sql)
+    results = {}
+    for (sql) in cursor:
+#        print (sql[0], sql[1], sql[2], sql[3])
+        iIndex = iIndex + 1
+        results = investing.lee_val_new (sql[2], iDolar, sql[3], sql[1], iIndex)
+#        print ("results - Saldo_pesos:", results.get ("Saldo_pesos"))
+        iTotalDolares += results.get ("Saldo_dolares")
+        iTotalPesos += results.get ("Saldo_pesos")
+        data.append (results)
+
+    data.append ({
+        "id": 0,
+        "dolar": iDolar,
+        "Saldo_pesos": iTotalPesos,
+        "Saldo_dolares": iTotalDolares
+    })
+    return (data)

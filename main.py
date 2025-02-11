@@ -170,6 +170,15 @@ async def read_item(item_id: str):
         iIndex = iIndex + 1
     return {"item_id": item_id}
 
+
+@app.get("/nada")
+def read_root():
+    iDolar = mylibs.lee_val_dolar ()
+    bRta = dbConnect.State_new (conex, iDolar)
+    return (bRta)
+
+
+
 print ("es una sarasa?")
 
 

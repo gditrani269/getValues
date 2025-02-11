@@ -1,4 +1,5 @@
 from curl_cffi import requests
+from os import remove
 
 def lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iQuantity ,data, sEspecie):
     print ("INICIANDO: lee_val_2")
@@ -10,6 +11,7 @@ def lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iQuantity ,data, sEspeci
     f.close()
     file1 = open('rta.txt', 'r',encoding='utf-8')
     Lines = file1.readlines()
+    remove("rta.txt")
     iRta = 0
     for line in Lines:
         iFirstTag = line.find('instrument-price-last')
@@ -29,6 +31,7 @@ def lee_val_2 (url, iTotalPesos, iTotalDolares, iDolar, iQuantity ,data, sEspeci
 #    data['Total Pesos'] = iTotalPesos
 #    data['Total Dolares'] = iTotalDolares
     print ("DATA: ", data)
+
     return data
 
 def lee_val_new (url, iDolar, iQuantity, sEspecie, iIndex):
@@ -41,6 +44,7 @@ def lee_val_new (url, iDolar, iQuantity, sEspecie, iIndex):
     f.close()
     file1 = open('rta.txt', 'r',encoding='utf-8')
     Lines = file1.readlines()
+    remove("rta.txt")
     for line in Lines:
         iFirstTag = line.find('instrument-price-last')
         if (iFirstTag) > 0 :

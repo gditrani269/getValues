@@ -1,4 +1,5 @@
 from curl_cffi import requests
+from os import remove
 
 def lee_val_dolar ():
     print ("iniciando mylibs.lee_val_dolar")
@@ -15,6 +16,7 @@ def lee_val_dolar ():
     f.close()
     file1 = open('lna.txt', 'r',encoding='utf-8')
     Lines = file1.readlines()
+    remove("lna.txt")
     iRta = 0
 #    print ("Valor de " + url [url.rfind ('/')+1 :])
 

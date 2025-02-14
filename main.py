@@ -177,7 +177,13 @@ def read_root():
     bRta = dbConnect.State_new (conex, iDolar)
     return (bRta)
 
+@app.get("/history/{accion}")
+async def read_item(accion: str):
+    print ("Es el endpoint History")
+    print ("------------------------")
 
+    bRta = dbConnect.History (conex, accion)
+    return (bRta)
 
 print ("es una sarasa?")
 

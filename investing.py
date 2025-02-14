@@ -55,6 +55,7 @@ def lee_val_new (url, iDolar, iQuantity, sEspecie, iIndex):
     campos = {
         "id": iIndex,
         "accion": sEspecie,
+        "cantidad": iQuantity,
         "valor": iAccionValue,
         "Saldo_pesos": iAccionValue * iQuantity,
         "Saldo_dolares": iAccionValue * iQuantity / iDolar
